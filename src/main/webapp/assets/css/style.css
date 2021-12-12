@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+@font-face {
+    font-family: Simpsonfont;
+    src: url('../tipografia/SimpsonfontDEMO.otf');
+  }
+
+:root {
+
+    --color-Simpsons: #fed41e;
+  }
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+.body-index{
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    background-color: var(--color-Simpsons);
+}
+
+.body-login{
+	    background-image: url(../img/fondo-nubes.jpg) !important;
+}
+
+a{
+    text-decoration: none;
+}
+/*===================MENU==========================*/
+#menu{
+    background-image: url(../img/fondo-dulces.png);
+    box-shadow:	5px 10px 20px 0 rgba(0,0,0,0.19);
+}
+ #menu a, button{
+     font-size: 18px !important;
+     font-weight: 600;
+    text-align: center;
+ }
+
+.menu-item{
+    border-radius: 20px;
+    transition: all 0.3s linear;
+    color: black!important;
+    background:var(--color-Simpsons);
+    padding: 3px 12px;
+    margin: 0 5px;
+ }
+ 
+.nav-link:hover {
+	transform: scale(1.1,1.1)!important;    
+}
+
+.show ul> li > a{
+    border-radius: 10px !important;
+    background:rgba(63, 62, 62, 0.5) !important;
+    border: 1px solid rgb(85, 85, 85);
+ }
+
+
+ /*===================VIDEO==========================*/
+
+.bg-video{
+    background-image: url(../img/fondo-dulces.png) !important;
+}
+
+.row > video {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/*===================Texto principal==========================*/
+
+ .texto-principal{
+    background-image: url(../img/fondo-dulces-min.png);
+    background-repeat: repeat-x;
+}
+
+/*===================Slide==========================*/
+
+
+/*===================Mapa Parque==========================*/
+
+.bg-mapa {
+    background-color: #69c4c4!important;
+    margin: 25px auto 0;
+    width: 75% !important;
+
+}
+.mapa-parque{
+    max-width: 100%;
+}
+
+@media (max-width: 768px) { 
+    .bg-mapa{
+        width: 100% !important;
+    }
+    .redes img{
+        width: 14% !important;
+        }
+    footer{
+        text-align: end !important;
+    }
+    .carrusel{
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 1600px) { 
+    .mapa-parque{
+        display: block;
+    }
+ }
+
+/*===================acordeon==========================*/
+
+.accordion-button,
+.accordion-body{
+    width: 75% !important;
+    margin: auto !important;
+}
+.accordion-item{
+    border: 0;
+}
+.accordion-button {
+    background-color: #e49454;
+
+}
+.accordion-header,
+.accordion-collapse {
+    color: black;
+    background-color: var(--color-Simpsons);
+}
+
+.accordion-button:not(.collapsed) {
+    color: #ffffff !important;
+    background-color: #e49454 !important;
+}
+
+/*===================footer==========================*/
+footer{
+    text-align: center;
+}
+
+.redes img{
+width: 6%;
+}
+
+    
+.bg-footer{
+    background-image: url(../img/fondo-footer.jpg);
+    background-size: cover;
+    margin-top: 5%;;
+
+}
+
+/*===================actividades==========================*/
+
+.bg-nubes{
+    background-image: url(../img/fondo-nubes.jpg);
+    width: 100%;
+    height: 80vh;
+    background-attachment: fixed;
+    color: #333;
+
+}
+
+.fuente-ls{
+    font-family: Simpsonfont !important;
+    color: var(--color-Simpsons);
+}
+
+.bg-cielo{
+    background-color: #92d4f7;
+
+}
+
+
+/*===================tabla==========================*/
+
+
+.dataTables_length{
+	display:none!important;
+}
