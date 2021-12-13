@@ -1,4 +1,4 @@
-package controller.promotion;
+/*package controller.promotion;
 
 import java.io.IOException;
 
@@ -55,3 +55,4 @@ public class EditAttractionServlet extends HttpServlet {
 		}
 	}
 }
+*/

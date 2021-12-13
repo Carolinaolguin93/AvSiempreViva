@@ -21,9 +21,6 @@
             <li class="nav-item">
               <a class="nav-link menu-item" href="/turismo/index.jsp#mapa">Ver Mapa</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link menu-item" href="/turismo/itinerario.do">Mis Compras</a>
-            </li>
           </ul>
           <ul class="navbar-nav">
           <li class="nav-item dropdown">
@@ -38,8 +35,8 @@
               <li><a class="dropdown-item disabled">
                 <i title="tiempo" style="color: blue;" class="bi bi-clock-fill"></i> <c:out value="${user.time}h"></c:out>
               </a></li>
-              <li><a class="dropdown-item disabled">
-                <i title="itinerario"></i> Itinerario
+              <li><a href="/turismo/itinerario.do" class="dropdown-item">
+                <i title="itinerario"></i> Mis Compras
               </a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a href="/turismo/logout" class="dropdown-item">Salir</a></li>

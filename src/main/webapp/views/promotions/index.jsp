@@ -32,8 +32,6 @@
 			<h1>Estas son las Promociones de la Tierra Media</h1>
 		</div>
 		
-		<p><c:out value="${itinerario}"></c:out></p>
-
 		<c:if test="${user.isAdmin()}">
 			<div class="mb-3">
 				<a href="/turismo/prmotions/create.do" class="btn btn-primary"
@@ -73,7 +71,7 @@
 							</c:if> <c:choose>
 
 								<c:when
-									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost()}">
+									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost() && (!itinerario.contains(attraction))}">
 									<a href="/turismo/promotions/buy.do?id=${attraction.id}"
 										class="btn btn-success rounded" role="button">Comprar</a>
 								</c:when>

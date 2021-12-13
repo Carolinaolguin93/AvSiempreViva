@@ -32,8 +32,6 @@
 			<h1>Estas son las atracciones de la Tierra Media</h1>
 		</div>
 		
-		<p><c:out value="${itinerario}"></c:out></p>
-
 		<c:if test="${user.isAdmin()}">
 			<div class="mb-3">
 				<a href="/turismo/attractions/create.do" class="btn btn-primary"
@@ -71,9 +69,13 @@
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
 							</c:if> <c:choose>
-
 								<c:when
-									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost()}">
+									test="${itinerario.contains(attraction)}">
+									<a href="#" class="btn btn-primary rounded disabled"
+										role="button">Agregada al carrito</a>
+								</c:when>
+								<c:when
+									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost() && !itinerario.contains(attraction)}">
 									<a href="/turismo/attractions/buy.do?id=${attraction.id}"
 										class="btn btn-success rounded" role="button">Comprar</a>
 								</c:when>

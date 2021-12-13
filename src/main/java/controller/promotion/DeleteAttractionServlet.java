@@ -1,4 +1,4 @@
-package controller.promotion;
+/*package controller.promotion;
 
 import java.io.IOException;
 
@@ -32,3 +32,4 @@ public class DeleteAttractionServlet extends HttpServlet {
 
 
 }
+*/

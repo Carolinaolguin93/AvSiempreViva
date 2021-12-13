@@ -143,7 +143,24 @@ public class UserDAOImpl implements UserDAO {
 
 	private User toUser(ResultSet userRegister) throws SQLException {
 		return new User(userRegister.getInt(1), userRegister.getString(2), userRegister.getString(3),
-				userRegister.getDouble(5), userRegister.getDouble(6), userRegister.getBoolean(4), userRegister.getString(5));
+				userRegister.getDouble(4), userRegister.getDouble(5), userRegister.getBoolean(6), userRegister.getString(7));
 	}
 
+	public int updatePsw(User user) {
+		try {
+			String sql = "UPDATE USERS SET password = ? WHERE ID = ?";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, user.getPassword());
+			statement.setDouble(2, user.getId());
+			int rows = statement.executeUpdate();
+
+			return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
+	
 }

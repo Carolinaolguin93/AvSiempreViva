@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Attraction extends Sugerencia{
 
@@ -112,6 +113,28 @@ public class Attraction extends Sugerencia{
 
 	public void host() {
 		this.capacity -= 1;
+	}
+
+	
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(capacity, cost, duration, errors, esPromocion, id, name, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Attraction other = (Attraction) obj;
+		return Objects.equals(capacity, other.capacity) && Objects.equals(cost, other.cost)
+				&& Objects.equals(duration, other.duration) && Objects.equals(errors, other.errors)
+				&& esPromocion == other.esPromocion && Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(type, other.type);
 	}
 
 	@Override

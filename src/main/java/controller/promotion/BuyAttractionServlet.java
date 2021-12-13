@@ -1,4 +1,4 @@
-package controller.promotion;
+/*package controller.promotion;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,3 +56,4 @@ public class BuyAttractionServlet extends HttpServlet {
 		dispatcher.forward(req, resp);
 	}
 }
+*/

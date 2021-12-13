@@ -37,5 +37,4 @@ public class ListPromotionsServlet extends HttpServlet implements Servlet {
 		dispatcher.forward(req, resp);
 
 	}
-
 }

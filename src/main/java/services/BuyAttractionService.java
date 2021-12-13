@@ -37,20 +37,18 @@ public class BuyAttractionService {
 			errors.put("user", "No tienes tiempo suficiente");
 		}if (!user.canAttend(attraction)) {
 			errors.put("user", "No tienes tiempo suficiente");
-		}if(comprasRealizadas.contains(attraction)) { // NO FUNCIONA 
+		}if(comprasRealizadas.contains(attraction)) { 
 			errors.put("user", "Ya compraste esta actividad");
 		}
 
 		if (errors.isEmpty()) {
 			user.buyActivity(attraction);
 			attraction.host();		
-			user.agregarSugerenciaAlItinerario(attraction);
 			try {
 				itinerario.insert(user, attraction);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			System.out.println("t o f:"+comprasRealizadas.contains(attraction));
 			attractionDAO.update(attraction);
 			userDAO.update(user);
 		}
