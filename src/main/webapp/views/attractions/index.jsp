@@ -75,7 +75,7 @@
 										role="button">Agregada al carrito</a>
 								</c:when>
 								<c:when
-									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost() && !itinerario.contains(attraction)}">
+									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost()}">
 									<a href="/turismo/attractions/buy.do?id=${attraction.id}"
 										class="btn btn-success rounded" role="button">Comprar</a>
 								</c:when>

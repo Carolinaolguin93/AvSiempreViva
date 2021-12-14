@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.Attraction;
 import model.Promotion;
 import model.Sugerencia;
 import model.User;
@@ -24,8 +25,8 @@ public class BuyPromotionService {
 		User user = userDAO.find(userId);
 		Promotion promotion = promotionDao.find(promotionId);
 		
+		
 		ArrayList<Sugerencia> comprasRealizadas = itinerario.find(userId);
-		System.out.println(comprasRealizadas);
 
 		if (!promotion.canHost()) {
 			errors.put("attraction", "No hay cupo disponible");
@@ -37,21 +38,21 @@ public class BuyPromotionService {
 			errors.put("user", "No tienes tiempo suficiente");
 		}if (!user.canAttend(promotion)) {
 			errors.put("user", "No tienes tiempo suficiente");
-		}if(comprasRealizadas.contains(promotion)) { // NO FUNCIONA 
-			errors.put("user", "Ya compraste esta actividad");
+		}if(comprasRealizadas.contains(promotion)) {
+			errors.put("user", "Ya compraste esta promo o sus atracciones");
 		}
 
 		if (errors.isEmpty()) {
 			user.buyActivity(promotion);
 			promotion.host();		
-			user.agregarSugerenciaAlItinerario(promotion);
 			try {
+				for(Attraction atr: promotion.getAttractions()) {
+					itinerario.insert(user, atr);
+				}
 				itinerario.insert(user, promotion);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			System.out.println("t o f:"+comprasRealizadas.contains(promotion));
-			promotionDao.update(promotion);
 			userDAO.update(user);
 		}
 

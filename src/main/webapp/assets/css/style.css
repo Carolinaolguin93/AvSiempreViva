@@ -53,9 +53,8 @@ a{
 }
 
 .show ul> li > a{
-    border-radius: 10px !important;
-    background:rgba(63, 62, 62, 0.5) !important;
     border: 1px solid rgb(85, 85, 85);
+    margin: 1px;
  }
 
 

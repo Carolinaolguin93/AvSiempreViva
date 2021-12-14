@@ -1,19 +1,16 @@
 package model;
 
-import java.util.List;
-
-import persistence.commons.DAOFactory;
-import persistence.impl.ItinerarioDAO;
-import persistence.impl.UserDAOImpl;
+import services.AttractionService;
 
 public class App {
 
 	public static void main(String[] args) {
 		
+		AttractionService ps = new AttractionService();
 		
-		
-		
-		
+		for(Attraction promo : ps.list()) {
+			System.out.println(promo.getName());
+		}
 		
 	
 	}

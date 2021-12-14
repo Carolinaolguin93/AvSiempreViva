@@ -11,8 +11,14 @@
 
 	<main class="container">
 
-		<form action="/turismo/promotions/create.do" method="post">
-			<jsp:include page="/views/promotions/form.jsp"></jsp:include>
+		<c:if test="${user != null && !user.isValid()}">
+			<div class="alert alert-danger">
+				<p>Se encontraron errores al crear el usuario.</p>
+			</div>
+		</c:if>
+
+		<form action="/turismo/users/create.do" method="post">
+			<jsp:include page="/views/users/form.jsp"></jsp:include>
 		</form>
 	</main>
 		<jsp:include page="/partials/footer.jsp"></jsp:include>

@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO {
 
 	public int insert(User user) {
 		try {
-			String sql = "INSERT INTO USERS (USERNAME, PASSWORD, COINS, TIME, ADMIN, FK_TYPE_OF_ATTR) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO USERS (USERNAME, PASSWORD, COINS, TIME, ADMIN, FK_TIPODEATRACCION) VALUES (?, ?, ?, ?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, user.getUsername());

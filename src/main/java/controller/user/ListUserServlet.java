@@ -1,4 +1,4 @@
-package controller.promotion;
+package controller.user;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,28 +10,29 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Promotion;
-import services.PromotionService;
+import model.User;
+import services.UserService;
 
-@WebServlet("/promotions/index.do")
-public class ListPromotionsServlet extends HttpServlet implements Servlet {
+@WebServlet("/users/index.do")
+public class ListUserServlet extends HttpServlet implements Servlet {
 
-	private static final long serialVersionUID = 4651405914000213975L;
-	private PromotionService promotionService;
+	private static final long serialVersionUID = -7768321190341140533L;
+	private UserService userService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.promotionService = new PromotionService();
+		this.userService = new UserService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Promotion> promotions = promotionService.list();
-		req.setAttribute("promotions", promotions);
+		List<User> user = userService.list();
+		req.setAttribute("users", user);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/promotions/index.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/users/index.jsp");
 		dispatcher.forward(req, resp);
 
 	}
+
 }

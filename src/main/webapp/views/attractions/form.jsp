@@ -32,6 +32,7 @@
 			<c:out value='${attraction.errors.get("capacity")}'></c:out>
 		</div>
 	</div>
+	
 </div>
 <div>
 	<button type="submit" class="btn btn-primary">Guardar</button>

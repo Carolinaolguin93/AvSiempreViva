@@ -16,10 +16,16 @@
               <a class="nav-link menu-item" aria-current="page" href="/turismo/index.jsp">Inicio</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link menu-item" href="/turismo/index.jsp#mapa">Ver Mapa</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link menu-item" href="/turismo/attractions/index.do">Atracciones</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link menu-item" href="/turismo/index.jsp#mapa">Ver Mapa</a>
+              <a class="nav-link menu-item" href="/turismo/promotions/index.do">Promociones</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link menu-item" href="/turismo/users/index.do">Usuarios</a>
             </li>
           </ul>
           <ul class="navbar-nav">
@@ -30,10 +36,10 @@
             <ul class="dropdown-menu dropdown-menu-end"
               aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item disabled">
-                <i title="monedas" style="color: gold;" class="bi bi-coin"></i> <c:out value="${user.coins}"></c:out>
+                <i title="monedas" style="color: #eb76ae; font-size:23px" class="bi-currency-exchange"></i> <c:out value="${user.coins}"></c:out>
               </a></li>
               <li><a class="dropdown-item disabled">
-                <i title="tiempo" style="color: blue;" class="bi bi-clock-fill"></i> <c:out value="${user.time}h"></c:out>
+                <i title="tiempo" style="color: #eb76ae; font-size:23px" class="bi bi-clock-fill"></i> <c:out value="${user.time}"></c:out>
               </a></li>
               <li><a href="/turismo/itinerario.do" class="dropdown-item">
                 <i title="itinerario"></i> Mis Compras

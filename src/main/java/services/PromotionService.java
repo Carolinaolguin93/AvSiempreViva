@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.List;
@@ -37,6 +38,12 @@ public class PromotionService {
 		DAOFactory.getPromotionDAO().insert(promo);
 		return promo;
 
+	}
+	
+	public void insertAttr_Promotion(Promotion promo) {
+		for(Attraction attr : promo.getAttractions()) {
+			DAOFactory.getPromotionDAO().insertAttr_Promotion(promo, attr);
+		}
 	}
 
 	public Promotion update(Integer id, String name, String type) {

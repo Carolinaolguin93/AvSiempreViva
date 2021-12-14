@@ -1,6 +1,7 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import utils.Crypt;
 
@@ -11,9 +12,9 @@ public class User {
 	private Boolean admin;
 	private Double coins;
 	private Double time;
-	private ArrayList<Sugerencia> itinerario = new ArrayList<Sugerencia>();
-	private double costoTotalItinerario;
-	private int tiempoTotalItinerario;
+	
+	private Map<String, String> errors;
+
 
 	public User(Integer id, String username, String password, Double coins, Double time, Boolean admin, String type) {
 		super();
@@ -26,28 +27,31 @@ public class User {
 		this.type = type;
 	}
 
-	public void agregarSugerenciaAlItinerario(Sugerencia sugerencia) {
-		this.itinerario.add(sugerencia);
-		this.costoTotalItinerario += sugerencia.getCost();
-		this.tiempoTotalItinerario += sugerencia.getDuration();
-		if (sugerencia.esPromocion()) {
-			Promotion auxPromocion = (Promotion) sugerencia;
-			for (Attraction atraccionDePromocion : auxPromocion.getAttractions()) {
-				this.itinerario.add(atraccionDePromocion);
-			}
-		}
-	}
+	
 
+	private void validate() {
+		errors = new HashMap<String, String>();
+
+		if (coins <= 0) {
+			errors.put("cost", "Debe ser positivo");
+		}
+		if (time <= 0) {
+			errors.put("duration", "Debe ser positivo");
+		}	
+	}
+	
+	public boolean isValid() {
+		validate();
+		return errors.isEmpty();
+		
+	}
+	
 	public String getType() {
 		return type;
 	}
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public ArrayList<Sugerencia> getItinerario() {
-		return itinerario;
 	}
 
 	public synchronized void buyActivity(Sugerencia sugerencia) {
@@ -64,7 +68,6 @@ public class User {
 	}
 
 	public boolean checkPassword(String password) {
-		// this.password en realidad es el hash del password
 		return Crypt.match(password, this.password);
 	}
 

@@ -1,4 +1,4 @@
-/*package controller.promotion;
+package controller.promotion;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,30 +13,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Sugerencia;
 import model.User;
 import persistence.commons.DAOFactory;
-import services.BuyAttractionService;
+import services.BuyPromotionService;
 import services.ItinerarioService;
 
-@WebServlet("/attractions/buy.do")
-public class BuyAttractionServlet extends HttpServlet {
+@WebServlet("/promotions/buy.do")
+public class BuyPromotionServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 3455721046062278592L;
-	private BuyAttractionService buyAttractionService;
+	private static final long serialVersionUID = -1986947871936493104L;
+	private BuyPromotionService buyPromotionService;
 	private ItinerarioService itinerarioService;
 
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.buyAttractionService = new BuyAttractionService();
+		this.buyPromotionService = new BuyPromotionService();
 		this.itinerarioService = new ItinerarioService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		Integer attractionId = Integer.parseInt(req.getParameter("id"));
+		Integer promotionId = Integer.parseInt(req.getParameter("id"));
 		User user = (User) req.getSession().getAttribute("user");
-		Map<String, String> errors = buyAttractionService.buy(user.getId(), attractionId);
+		Map<String, String> errors = buyPromotionService.buy(user.getId(), promotionId);
 		
 		ArrayList<Sugerencia> itinerario = itinerarioService.find(user.getId());
 		req.setAttribute("itinerario", itinerario);
@@ -52,8 +52,7 @@ public class BuyAttractionServlet extends HttpServlet {
 		}
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/attractions/index.do");
+				.getRequestDispatcher("/promotions/index.do");
 		dispatcher.forward(req, resp);
 	}
 }
-*/
