@@ -119,12 +119,13 @@ public class PromotionDAOImpl implements PromotionDAO {
 	@Override
 	public int insert(Promotion promotion) {
 		try {
-			String sql = "INSERT INTO PROMOTION (NAME, FK_TYPE_OF_ATTR) VALUES (?, ?)";
+			String sql = "INSERT INTO PROMOTION (ID, NAME, FK_TYPE_OF_ATTR) VALUES (?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, promotion.getName());
-			statement.setString(1, promotion.getType());
+			statement.setInt(1, promotion.getId());
+			statement.setString(2, promotion.getName());
+			statement.setString(3, promotion.getType());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -134,14 +135,14 @@ public class PromotionDAOImpl implements PromotionDAO {
 	}
 	
 	@Override
-	public int insertAttr_Promotion(Promotion promotion, Attraction attraction) {
+	public int insertAttr_Promotion(Integer idpromo, Attraction attraction) {
 		try {
 			String sql = "INSERT INTO ATTRACTION_PROMOTION (FK_ATTRACTION , FK_PROMOTION) VALUES (?, ?);";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, attraction.getId());
-			statement.setInt(2, promotion.getId());
+			statement.setInt(2, idpromo);
 			int rows = statement.executeUpdate();
 
 			return rows;

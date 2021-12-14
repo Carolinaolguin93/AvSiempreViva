@@ -27,8 +27,8 @@ public class ListUserServlet extends HttpServlet implements Servlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<User> user = userService.list();
-		req.setAttribute("users", user);
+		List<User> users = userService.list();
+		req.setAttribute("users", users);
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/users/index.jsp");
 		dispatcher.forward(req, resp);

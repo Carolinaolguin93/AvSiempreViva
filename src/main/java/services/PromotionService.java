@@ -8,6 +8,7 @@ import model.PromocionAbsoluta;
 import model.PromocionPorcentual;
 import model.PromocionTresPorDos;
 import model.Promotion;
+import model.Sugerencia;
 import persistence.AttractionDAO;
 import persistence.PromotionDAO;
 import persistence.commons.DAOFactory;
@@ -23,29 +24,31 @@ public class PromotionService {
 	public Promotion create(String name, String type, Attraction[] attractions) {
 
 		Promotion promo = null;
+		Integer ultimoIdPromo = DAOFactory.getPromotionDAO().countAll();
+		Integer nuevoIdPromo = ultimoIdPromo+1;
 		if (type.equals("Aventura")) {
-			promo = new PromocionAbsoluta(-1, name, type, attractions);
+			promo = new PromocionAbsoluta(nuevoIdPromo, name, type, attractions);
 		} else if (type.equals("Visita_Guiada")) {
-			promo = new PromocionTresPorDos(-1, name, type, attractions);
+			promo = new PromocionTresPorDos(nuevoIdPromo, name, type, attractions);
 		} else if (type.equals("Gastronomia")) {
-			promo = new PromocionPorcentual(-1, name, type, attractions);
-		}
-		
-		for(Attraction attr : attractions) {
-			DAOFactory.getPromotionDAO().insertAttr_Promotion(promo, attr);
+			promo = new PromocionPorcentual(nuevoIdPromo, name, type, attractions);
 		}
 		
 		DAOFactory.getPromotionDAO().insert(promo);
+		for(Attraction attr : promo.getAttractions()) {
+			DAOFactory.getPromotionDAO().insertAttr_Promotion(nuevoIdPromo, attr);
+		}
+		
 		return promo;
 
 	}
-	
+	/*
 	public void insertAttr_Promotion(Promotion promo) {
 		for(Attraction attr : promo.getAttractions()) {
 			DAOFactory.getPromotionDAO().insertAttr_Promotion(promo, attr);
 		}
 	}
-
+*/
 	public Promotion update(Integer id, String name, String type) {
 
 		PromotionDAO promotionDao = DAOFactory.getPromotionDAO();
@@ -71,8 +74,8 @@ public class PromotionService {
 		}
 		
 		PromotionDAO promotionDao = DAOFactory.getPromotionDAO();
-		promotionDao.delete(promo);
 		promotionDao.deleteAttr_Promotion(promo);
+		promotionDao.delete(promo);
 		
 	}
 

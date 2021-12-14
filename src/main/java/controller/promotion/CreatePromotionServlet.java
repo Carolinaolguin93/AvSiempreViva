@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Attraction;
+import model.Promotion;
+import model.Sugerencia;
 import services.AttractionService;
 import services.PromotionService;
 
@@ -41,9 +43,9 @@ public class CreatePromotionServlet extends HttpServlet {
 		String name = req.getParameter("name");
 		String type = req.getParameter("type");
 		Integer attraction1 = Integer.parseInt(req.getParameter("attraction1"));
-		Integer attraction2 = Integer.parseInt(req.getParameter("attraction1"));
-		Integer attraction3 = Integer.parseInt(req.getParameter("attraction1"));
-		int[] idAttractions = new int[]{attraction1, attraction2, attraction3}; 
+		Integer attraction2 = Integer.parseInt(req.getParameter("attraction2"));
+		Integer attraction3 = Integer.parseInt(req.getParameter("attraction3"));
+		int[] idAttractions = {attraction1, attraction2, attraction3}; 
 		Attraction[] attractions = new Attraction[idAttractions.length];
 		for (int i = 0; i < idAttractions.length; i++) {
 		for (Attraction attraction : attractionService.list()) {
@@ -53,8 +55,8 @@ public class CreatePromotionServlet extends HttpServlet {
 			}
 		}
 		promotionService.create(name, type, attractions);
-		promotionService.insertAttr_Promotion(promotionService.create(name, type, attractions));
-		resp.sendRedirect("/turismo/attractions/index.do");
+
+		resp.sendRedirect("/turismo/promotions/index.do");
 	}
 
 }

@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public abstract class Promotion extends Sugerencia{
@@ -11,12 +13,32 @@ public abstract class Promotion extends Sugerencia{
 	protected Attraction[] attractions;
 	private boolean esPromocion = true;
 
+	private Map<String, String> errors;
+
 	public Promotion(int id, String name, String type, Attraction[] attractions) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.attractions = attractions;
 	}
+	/*
+	private void validate() {
+		errors = new HashMap<String, String>();
+
+		if (coins <= 0) {
+			errors.put("cost", "Debe ser positivo");
+		}
+		if (time <= 0) {
+			errors.put("duration", "Debe ser positivo");
+		}	
+	}
+	
+	public boolean isValid() {
+		validate();
+		return errors.isEmpty();
+		
+	}*/
+	
 
 	public Integer getId() {
 		return id;

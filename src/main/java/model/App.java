@@ -1,18 +1,16 @@
 package model;
 
-import services.AttractionService;
+import persistence.commons.DAOFactory;
+import services.PromotionService;
 
 public class App {
 
 	public static void main(String[] args) {
 		
-		AttractionService ps = new AttractionService();
 		
-		for(Attraction promo : ps.list()) {
-			System.out.println(promo.getName());
-		}
-		
-	
+		Integer ultimoIdPromo = DAOFactory.getPromotionDAO().countAll();
+		Integer nuevoIdPromo = ultimoIdPromo++;
+		System.out.println(nuevoIdPromo);
 	}
 	
 	

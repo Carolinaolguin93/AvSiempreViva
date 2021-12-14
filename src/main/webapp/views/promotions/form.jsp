@@ -6,18 +6,21 @@
 			required value="${promotion.name}">
 	</div>
 	<div class="mb-3">
-		<label for="type"
-			class='col-form-label'>tipo:</label>
-		<input class="form-control" type="text" id="type" name="type"
-			required value="${promotion.type}"></input>
+	<label for="type" class="col-form-label">tipo:</label> <input
+		type="text" class="form-control" id="type" name="type"
+		required value="${promotion.type}">
 	</div>
+	<br>
+	<div>
+	<p>
+	<strong>Elegir Tres Atracciones:</strong>
 	<div class="mb-3">
 		<label for="attraction"
 			class='col-form-label'>Atracción 1:</label>
-		<select class="form-select" aria-label="Default select example" id="attraction1" name="attraction1" required>
+		<select class="form-select" aria-label="Default select example" id="attraction1" name="attraction1" >
 		<option selected>Seleccionar Atracción 1</option>
 		<c:forEach items="${attractions}" var="attraction">
- 			<option value="<c:out value="${attraction.id}"></c:out>"><c:out value="${attraction.name}"></c:out></option>
+ 			<option required value="<c:out value="${attraction.id}"></c:out>"><c:out value="${attraction.name}"></c:out></option>
  		</c:forEach>
 		</select>
 	</div>
@@ -41,7 +44,8 @@
  		</c:forEach>
 		</select>
 	</div>
-
+	</p>
+	</div>
 </div>
 <div>
 	<button type="submit" class="btn btn-primary">Guardar</button>

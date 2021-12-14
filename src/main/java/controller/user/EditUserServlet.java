@@ -43,12 +43,12 @@ public class EditUserServlet extends HttpServlet {
 		Boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
 		String type = req.getParameter("type");
 
-		User tmp_user = userService.createUser(username, password, coins, time, admin, type);
+		User user = userService.createUser(username, password, coins, time, admin, type);
 
-		if (tmp_user.isValid()) {
+		if (user.isValid()) {
 			resp.sendRedirect("/views/users/index.do");
 		} else {
-			req.setAttribute("user", tmp_user);
+			req.setAttribute("user", user);
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/users/edit.jsp");
 			dispatcher.forward(req, resp);
