@@ -6,16 +6,14 @@ import java.util.Map;
 import utils.Crypt;
 
 public class User {
-
+	
 	private Integer id;
 	private String username, password, type;
 	private Boolean admin;
 	private Double coins;
 	private Double time;
+	HashMap<String, String> errors;
 	
-	private Map<String, String> errors;
-
-
 	public User(Integer id, String username, String password, Double coins, Double time, Boolean admin, String type) {
 		super();
 		this.id = id;
@@ -33,17 +31,22 @@ public class User {
 		errors = new HashMap<String, String>();
 
 		if (coins <= 0) {
-			errors.put("cost", "Debe ser positivo");
+			errors.put("coins", "Debe ser positivo");
 		}
 		if (time <= 0) {
-			errors.put("duration", "Debe ser positivo");
+			errors.put("time", "Debe ser positivo");
 		}	
 	}
+	
 	
 	public boolean isValid() {
 		validate();
 		return errors.isEmpty();
 		
+	}
+	
+	public Map<String, String> getErrors() {
+		return errors;
 	}
 	
 	public String getType() {
@@ -76,8 +79,7 @@ public class User {
 	}
 
 	public Double getCoins() {
-	double precioRedondo = Math.round(coins*100.0)/100.0;
-		return precioRedondo;
+		return coins;
 	}
 
 	public Integer getId() {

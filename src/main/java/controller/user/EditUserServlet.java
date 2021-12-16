@@ -36,6 +36,7 @@ public class EditUserServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Integer id = Integer.parseInt(req.getParameter("id"));
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		Double coins = Double.parseDouble(req.getParameter("coins"));
@@ -43,12 +44,12 @@ public class EditUserServlet extends HttpServlet {
 		Boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
 		String type = req.getParameter("type");
 
-		User tmp_user = userService.createUser(username, password, coins, time, admin, type);
+		User user = userService.update(id, username, password, coins, time, admin, type);
 
-		if (tmp_user.isValid()) {
-			resp.sendRedirect("/views/users/index.do");
+		if (user.isValid()) {
+			resp.sendRedirect("/turismo/users/index.do");
 		} else {
-			req.setAttribute("user", tmp_user);
+			req.setAttribute("user", user);
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/users/edit.jsp");
 			dispatcher.forward(req, resp);

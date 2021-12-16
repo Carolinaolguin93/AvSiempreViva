@@ -14,7 +14,7 @@ import services.UserService;
 @WebServlet("/users/create.do")
 public class CreateUserServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -8501285180673206346L;
+	private static final long serialVersionUID = 3455721046062278592L;
 	private UserService userService;
 
 	@Override
@@ -26,8 +26,7 @@ public class CreateUserServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/views/users/create.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/users/create.jsp");
 		dispatcher.forward(req, resp);
 	}
 
@@ -40,12 +39,12 @@ public class CreateUserServlet extends HttpServlet {
 		Boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
 		String type = req.getParameter("type");
 
-		User tmp_user = userService.createUser(username, password, coins, time, admin, type);
+		User user = userService.create(username, password, coins, time, admin, type);
 		
-		if (tmp_user.isValid()) {
+		if (user.isValid()) {
 			resp.sendRedirect("/turismo/users/index.do");
 		} else {
-			req.setAttribute("tmp_user", tmp_user);
+			req.setAttribute("user",user);
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/users/create.jsp");
 			dispatcher.forward(req, resp);

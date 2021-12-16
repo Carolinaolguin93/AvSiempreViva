@@ -18,7 +18,7 @@
 		</c:if>
 
 		<form action="/turismo/users/create.do" method="post">
-			<jsp:include page="/views/users/form.jsp"></jsp:include>
+			<jsp:include page="/views/users/form2.jsp"></jsp:include>
 		</form>
 	</main>
 		<jsp:include page="/partials/footer.jsp"></jsp:include>

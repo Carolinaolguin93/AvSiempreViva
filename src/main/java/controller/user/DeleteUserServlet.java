@@ -12,7 +12,7 @@ import services.UserService;
 @WebServlet("/users/delete.do")
 public class DeleteUserServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -3846116186823630385L;
+	private static final long serialVersionUID = 1537949074766873118L;
 	private UserService userService;
 
 	@Override
@@ -27,6 +27,8 @@ public class DeleteUserServlet extends HttpServlet {
 
 		userService.delete(id);
 
-		resp.sendRedirect("/views/users/index.do");
+		resp.sendRedirect("/turismo/users/index.do");
 	}
+
+
 }

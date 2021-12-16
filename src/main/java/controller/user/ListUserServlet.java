@@ -16,7 +16,7 @@ import services.UserService;
 @WebServlet("/users/index.do")
 public class ListUserServlet extends HttpServlet implements Servlet {
 
-	private static final long serialVersionUID = -7768321190341140533L;
+	private static final long serialVersionUID = -8346640902238722429L;
 	private UserService userService;
 
 	@Override
@@ -26,11 +26,13 @@ public class ListUserServlet extends HttpServlet implements Servlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		List<User> users = userService.list();
 		req.setAttribute("users", users);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/users/index.jsp");
+		RequestDispatcher dispatcher = getServletContext()
+				.getRequestDispatcher("/views/users/index.jsp");
 		dispatcher.forward(req, resp);
 
 	}
