@@ -32,7 +32,14 @@
 			<c:out value='${attraction.errors.get("capacity")}'></c:out>
 		</div>
 	</div>
-	
+	<label for="type">Selecciona el tipo:</label>
+	<select class="form-select" aria-label="Default select example" id="type" name="type" required>
+    <option></option>
+  <option value="Gastronomia">Gastronomia</option>
+  <option value="Aventura">Aventura</option>
+  <option value="Visita_Guiada">Paseo *debe contener 3 atracciones</option>
+</select>
+</div>
 </div>
 <div>
 	<button type="submit" class="btn btn-primary">Guardar</button>

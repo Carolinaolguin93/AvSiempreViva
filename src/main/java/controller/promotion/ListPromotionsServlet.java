@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Promotion;
+import model.User;
 import services.PromotionService;
 
 @WebServlet("/promotions/index.do")
@@ -28,6 +29,8 @@ public class ListPromotionsServlet extends HttpServlet implements Servlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Promotion> promotions = promotionService.list();
+		User user = (User) req.getSession().getAttribute("user");
+		promotionService.listOrdenada(promotions, user.getType());
 		req.setAttribute("promotions", promotions);
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/promotions/index.jsp");

@@ -6,7 +6,7 @@ public abstract class Sugerencia {
 
 	public abstract Double getDuration();
 
-	//public abstract String getTipoDeAtraccion(); PENDIENTE
+	public abstract String getType(); 
 
 	public abstract boolean esPromocion();
 

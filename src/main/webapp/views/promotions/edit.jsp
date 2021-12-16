@@ -10,16 +10,17 @@
 	<jsp:include page="/partials/header.jsp"></jsp:include>
 
 	<main class="container">
-
-		<c:if test="${attraction != null && !attraction.isValid()}">
+	
+		<c:if test="${promotion != null && !promotion.isValid()}">
 			<div class="alert alert-danger">
-				<p>Se encontraron errores al actualizar la atracción.</p>
+				<p>Se encontraron errores al actualizar la promocion.</p>
 			</div>
 		</c:if>
 
-		<form action="/turismo/attractions/edit.do" method="post">
-			<input type="hidden" name="id" value="${attraction.id}">
-			<jsp:include page="/views/attractions/form.jsp"></jsp:include>
+
+		<form action="/turismo/promotions/edit.do" method="post">
+			<input type="hidden" name="id" value="${promotion.id}">
+			<jsp:include page="/views/promotions/form.jsp"></jsp:include>
 		</form>
 	</main>
 </body>

@@ -4,8 +4,8 @@ public class PromocionPorcentual extends Promotion {
 
 	private static final double DESCUENTO = 0.2;
 
-	public PromocionPorcentual(int id, String nombre, String tipoDePromocion, Attraction[] atracciones) {
-		super(id, nombre, tipoDePromocion, atracciones);
+	public PromocionPorcentual(int id, String nombre, String tipoAttr, String typePromo , Attraction[] atracciones) {
+		super(id, nombre, tipoAttr, typePromo, atracciones);
 	}
 
 	@Override

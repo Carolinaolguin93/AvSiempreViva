@@ -1,7 +1,8 @@
 <meta charset="utf-8">
   <title>Parque de Diversiones Av Siempre Viva!</title>
   
-  <link rel="shortcut icon" href="assets/icono.ico">
+  <link rel="shortcut icon" href="/turismo/assets/icono.ico">
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,7 +24,6 @@
 <script src="https://cdn.datatables.net/fixedheader/3.2.0/js/dataTables.fixedHeader.min.js" ></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" ></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js" ></script>
-
 
 
 

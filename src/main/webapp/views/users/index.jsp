@@ -27,8 +27,8 @@
 			</div>
 		</c:if>
 
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Usuarios</h1>
+		<div class="p-4 mb-3 rounded" style="background-color: #3a3a3a!important;">
+			<h1 class="fuente-ls text-center">Lista de Usuarios</h1>
 		</div>
 
 		<c:if test="${user.isAdmin()}">

@@ -2,8 +2,8 @@ package model;
 
 public class PromocionTresPorDos extends Promotion {
 
-	public PromocionTresPorDos(int id, String nombre, String tipoDePromocion, Attraction[] atracciones) {
-		super(id, nombre, tipoDePromocion, atracciones);
+	public PromocionTresPorDos(int id, String nombre, String tipoAttr,String typePromo, Attraction[] atracciones) {
+		super(id, nombre, tipoAttr, typePromo, atracciones);
 	}
 
 	@Override
@@ -14,7 +14,8 @@ public class PromocionTresPorDos extends Promotion {
 			precio += attractions[i].getCost();
 			i++;
 		}
-		return precio;
+		return precio; 
+
 	}
 
 }

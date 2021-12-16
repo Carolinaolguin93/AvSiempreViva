@@ -15,6 +15,7 @@ public class UserService {
 	public User createUser(String username, String password, Double coins, Double time, Boolean admin, String type) {
 
 		User user = new User(-1, username, password, coins, time, admin, type);
+		user.setPassword(password);
 
 		if (user.isValid()) {
 			UserDAO userDAO = DAOFactory.getUserDAO();

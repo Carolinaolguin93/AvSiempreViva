@@ -4,8 +4,8 @@ public class PromocionAbsoluta extends Promotion {
 
 	private static final double DESCUENTO = 3;
 
-	public PromocionAbsoluta(int id, String nombre, String tipoDePromocion, Attraction[] atracciones) {
-		super(id, nombre, tipoDePromocion, atracciones);
+	public PromocionAbsoluta(int id, String nombre, String tipoAttr, String typePromo, Attraction[] atracciones) {
+		super(id, nombre, tipoAttr, typePromo, atracciones);
 	}
 
 	@Override

@@ -1,53 +1,54 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <div class="modal-body">
 	<div class="mb-3">
 		<label for="name" class="col-form-label">Nombre:</label> <input
 			type="text" class="form-control" id="name" name="name"
 			required value="${promotion.name}">
 	</div>
-	<div class="mb-3">
-	<label for="type" class="col-form-label">tipo:</label> <input
-		type="text" class="form-control" id="type" name="type"
-		required value="${promotion.type}">
-	</div>
-	<br>
+	
 	<div>
-	<p>
-	<strong>Elegir Tres Atracciones:</strong>
-	<div class="mb-3">
-		<label for="attraction"
-			class='col-form-label'>Atracción 1:</label>
-		<select class="form-select" aria-label="Default select example" id="attraction1" name="attraction1" >
-		<option selected>Seleccionar Atracción 1</option>
-		<c:forEach items="${attractions}" var="attraction">
- 			<option required value="<c:out value="${attraction.id}"></c:out>"><c:out value="${attraction.name}"></c:out></option>
- 		</c:forEach>
-		</select>
-	</div>
-	<div class="mb-3">
-		<label for="attraction"
-			class='col-form-label'>Atracción 2:</label>
-		<select class="form-select" aria-label="Default select example" id="attraction2" name="attraction2" required>
-		<option selected>Seleccionar Atracción 2</option>
-		<c:forEach items="${attractions}" var="attraction">
- 			<option value="<c:out value="${attraction.id}"></c:out>"><c:out value="${attraction.name}"></c:out></option>
- 		</c:forEach>
-		</select>
-	</div>
-	<div class="mb-3">
-		<label for="attraction"
-			class='col-form-label'>Atracción 3:</label>
-		<select class="form-select" aria-label="Default select example" id="attraction3" name="attraction3" required>
-		<option selected>Seleccionar Atracción 3</option>
-		<c:forEach items="${attractions}" var="attraction">
- 			<option value="<c:out value="${attraction.id}"></c:out>"><c:out value="${attraction.name}"></c:out></option>
- 		</c:forEach>
-		</select>
-	</div>
-	</p>
-	</div>
+<label for="type">Selecciona el tipo:</label>
+	<select class="form-select" aria-label="Default select example" id="type" name="type" required>
+    <option></option>
+  <option value="Gastronomia">Gastronomia</option>
+  <option value="Aventura">Aventura</option>
+  <option value="Visita_Guiada">Paseo *debe contener 3 atracciones</option>
+</select>
 </div>
-<div>
+<br>
+	<div>
+	<p>Selecciona las atracciones que incluye:
+<c:forEach items="${attractions}" var="attraction">	
+<div class="form-check">
+
+<c:choose>
+<c:when test="${promotion.idAttractions.contains(attraction.id)}">
+  <input class="form-check-input" type="checkbox" name="attractions" value="${attraction.id}" id="flexCheckDefault" checked>
+</c:when>
+<c:otherwise>
+  <input class="form-check-input" type="checkbox" name="attractions" value="${attraction.id}" id="flexCheckDefault">
+</c:otherwise>
+</c:choose>
+<label class="form-check-label" for="flexCheckDefault">
+
+<c:out value="${attraction.name}"></c:out>     		
+  </label>
+    </div>
+  </c:forEach>
+      </p>
+  </div>
+  	<div>
+<label for="typePromo">Selecciona el tipo:</label>
+	<select class="form-select" aria-label="Default select example" id="typePromo" name="typePromo" required>
+    <option></option>
+  <option value="Absoluta">Promo absoluta</option>
+  <option value="TresPorDos">Promo tres por dos</option>
+  <option value="Porcentual">Promo porcentual</option>
+</select>
+</div>
+<br>
+	<div>
 	<button type="submit" class="btn btn-primary">Guardar</button>
 	<a onclick="window.history.back();" class="btn btn-secondary"
 		role="button">Cancelar</a>

@@ -21,7 +21,8 @@ public class PromotionDAOImpl implements PromotionDAO {
 
 	public List<Promotion> findAll(List<Attraction> atr) {
 		try {
-			String sql = "SELECT promotion.*, group_concat(fk_attraction, ',') AS 'list_atr' FROM promotion  JOIN attraction_promotion ON attraction_promotion.fk_promotion = promotion.id  GROUP BY promotion.id";
+			String sql = "SELECT promotion.*, group_concat(fk_attraction, ',') AS 'list_atr' FROM promotion"
+					+ " JOIN attraction_promotion ON attraction_promotion.fk_promotion = promotion.id  GROUP BY promotion.id";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -31,6 +32,7 @@ public class PromotionDAOImpl implements PromotionDAO {
 				int id = resultados.getInt("id");
 				String name = resultados.getString("name");
 				String type = resultados.getString("fk_type_of_attr");
+				String typePromo = resultados.getString("type_promotion");
 				String[] attractionString = resultados.getString("list_atr").split(",");
 				Attraction[] attractions = new Attraction[attractionString.length];
 				for (int i = 0; i < attractionString.length; i++) {
@@ -40,12 +42,12 @@ public class PromotionDAOImpl implements PromotionDAO {
 						}
 					}
 				}
-				if (resultados.getInt("id") == 1) {
-					promotion.add(new PromocionAbsoluta(id, name, type, attractions));
-				} else if (resultados.getInt("id") == 2) {
-					promotion.add(new PromocionTresPorDos(id, name, type, attractions));
-				} else if (resultados.getInt("id") == 3) {
-					promotion.add(new PromocionPorcentual(id, name, type, attractions));
+				if (typePromo.equals("Absoluta")) {
+					promotion.add(new PromocionAbsoluta(id, name, type, typePromo, attractions));
+				} else if (typePromo.equals("TresPorDos")) {
+					promotion.add(new PromocionTresPorDos(id, name, type, typePromo, attractions));
+				} else if (typePromo.equals("Porcentual")) {
+					promotion.add(new PromocionPorcentual(id, name, type, typePromo, attractions));
 				}
 			}
 			return promotion;
@@ -54,10 +56,30 @@ public class PromotionDAOImpl implements PromotionDAO {
 		}
 	}
 
+	public List<String> listNamePromotions() {
+		try {
+			String sql = "SELECT promotion.name FROM promotion";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
+
+			List<String> nombresPromos = new LinkedList<String>();
+			while (resultados.next()) {
+				nombresPromos.add(resultados.getString(1));
+			}
+
+			return nombresPromos;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	
 	@Override
 	public Promotion find(Integer id) {
 		try {
-			String sql = "SELECT * FROM (SELECT promotion.*, group_concat(fk_attraction, ',') AS 'list_atr' FROM promotion  JOIN attraction_promotion ON attraction_promotion.fk_promotion = promotion.id  GROUP BY promotion.id) WHERE id = ?";
+			String sql = "SELECT * FROM (SELECT promotion.*, group_concat(fk_attraction, ',') AS 'list_atr' "
+					+ "FROM promotion  JOIN attraction_promotion ON attraction_promotion.fk_promotion = promotion.id  GROUP BY promotion.id) WHERE id = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
@@ -76,7 +98,7 @@ public class PromotionDAOImpl implements PromotionDAO {
 	}
 
 	private Promotion toPromotion(ResultSet promotionRegister) throws SQLException {
-		String[] attractionString = promotionRegister.getString(4).split(",");
+		String[] attractionString = promotionRegister.getString(5).split(",");
 		Attraction[] attractions = new Attraction[attractionString.length];
 		for (int i = 0; i < attractionString.length; i++) {
 			for (Attraction attraction : DAOFactory.getAttractionDAO().findAll()) {
@@ -86,15 +108,15 @@ public class PromotionDAOImpl implements PromotionDAO {
 			}
 		}
 		Promotion promo = null;
-		if (promotionRegister.getInt(1) == 1) {
+		if (promotionRegister.getString(4).equals("Absoluta")) {
 			promo = new PromocionAbsoluta(promotionRegister.getInt(1), promotionRegister.getString(2),
-					promotionRegister.getString(3), attractions);
-		} else if (promotionRegister.getInt(1) == 2) {
+					promotionRegister.getString(3), promotionRegister.getString(4), attractions);
+		} else if (promotionRegister.getString(4).equals("TresPorDos")) {
 			promo = new PromocionTresPorDos(promotionRegister.getInt(1), promotionRegister.getString(2),
-					promotionRegister.getString(3), attractions);
-		} else if (promotionRegister.getInt(1) == 3) {
+					promotionRegister.getString(3), promotionRegister.getString(4), attractions);
+		} else if (promotionRegister.getString(4).equals("Porcentual")) {
 			promo = new PromocionPorcentual(promotionRegister.getInt(1), promotionRegister.getString(2),
-					promotionRegister.getString(3), attractions);
+					promotionRegister.getString(3), promotionRegister.getString(4), attractions);
 		}
 		return promo;
 	}
@@ -116,16 +138,36 @@ public class PromotionDAOImpl implements PromotionDAO {
 		}
 	}
 	
+
+	@Override
+	public int ultimoIdTabla() {
+		try {
+			String sql = "SELECT MAX(id) AS id FROM promotion";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
+
+			resultados.next();
+			int total = resultados.getInt("id");
+
+			return total;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
 	@Override
 	public int insert(Promotion promotion) {
 		try {
-			String sql = "INSERT INTO PROMOTION (ID, NAME, FK_TYPE_OF_ATTR) VALUES (?, ?, ?)";
+			String sql = "INSERT INTO PROMOTION (ID, NAME, FK_TYPE_OF_ATTR, TYPE_PROMOTION) VALUES (?, ?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, promotion.getId());
 			statement.setString(2, promotion.getName());
 			statement.setString(3, promotion.getType());
+			statement.setString(4, promotion.getTypePromo());
+
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -154,13 +196,14 @@ public class PromotionDAOImpl implements PromotionDAO {
 	@Override
 	public int update(Promotion promotion) {
 		try {
-			String sql = "UPDATE PROMOTION SET NAME = ?, FK_TYPE_OF_ATTR = ? WHERE ID = ?";
+			String sql = "UPDATE PROMOTION SET NAME = ?, FK_TYPE_OF_ATTR = ? , TYPE_PROMOTION = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, promotion.getName());
 			statement.setString(2, promotion.getType());
-			statement.setInt(3, promotion.getId());
+			statement.setString(3, promotion.getTypePromo());
+			statement.setInt(4, promotion.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;

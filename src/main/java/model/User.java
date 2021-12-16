@@ -76,7 +76,8 @@ public class User {
 	}
 
 	public Double getCoins() {
-		return coins;
+	double precioRedondo = Math.round(coins*100.0)/100.0;
+		return precioRedondo;
 	}
 
 	public Integer getId() {

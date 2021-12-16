@@ -24,10 +24,9 @@ public class LoggedFilter implements Filter {
 		} else {
 			request.setAttribute("flash", "Por favor, ingresa al sistema");
 
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		}
-
 	}
 
 }

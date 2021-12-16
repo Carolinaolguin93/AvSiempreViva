@@ -1,9 +1,7 @@
 package controller.promotion;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -16,12 +14,13 @@ import model.Promotion;
 import services.AttractionService;
 import services.PromotionService;
 
-@WebServlet("/promotions/create.do")
-public class CreatePromotionServlet extends HttpServlet {
+@WebServlet("/promotions/edit.do")
+public class EditPromotionServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 8874396921558135332L;
+	private static final long serialVersionUID = 7598291131560345626L;
 	private PromotionService promotionService;
 	private AttractionService attractionService;
+
 
 	@Override
 	public void init() throws ServletException {
@@ -35,22 +34,20 @@ public class CreatePromotionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Attraction> attractions = attractionService.list();
 		req.setAttribute("attractions", attractions);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/promotions/create.jsp");
+		Integer id = Integer.parseInt(req.getParameter("id"));
+
+		Promotion promotion = promotionService.find(id);
+		req.setAttribute("promotion", promotion);
+
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/promotions/edit.jsp");
 		dispatcher.forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Integer id = Integer.parseInt(req.getParameter("id"));
 		String name = req.getParameter("name");
 		String type = req.getParameter("type");
-		if(req.getParameterValues("attractions") == null) {
-			List<Attraction> attractions = attractionService.list();
-			req.setAttribute("attractions", attractions);
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/views/promotions/create.jsp");
-			dispatcher.forward(req, resp);
-		}
-			
 		String[] attractionString = req.getParameterValues("attractions");
 		Attraction[] arrayAttractions = new Attraction[attractionString.length];
 		for (int i = 0; i < attractionString.length; i++) {
@@ -62,20 +59,17 @@ public class CreatePromotionServlet extends HttpServlet {
 		}
 		String typePromo = req.getParameter("typePromo");
 
-	
-		Promotion promo = promotionService.create(name, type, typePromo, arrayAttractions);
-
-		if(!(type.equals("Visita_Guiada") && attractionString.length != 3)) {
+		Promotion promo = promotionService.update(id, name, type,arrayAttractions, typePromo);
+		if (promo.isValid()) {
 			resp.sendRedirect("/turismo/promotions/index.do");
 		} else {
 			List<Attraction> attractions = attractionService.list();
 			req.setAttribute("attractions", attractions);
 			req.setAttribute("promotion", promo);
 
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/views/promotions/create.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/promotions/edit.jsp");
 			dispatcher.forward(req, resp);
 		}
-	}
 
+	}
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,36 +10,36 @@ public abstract class Promotion extends Sugerencia{
 
 	private Integer id;
 	private String name;
-	private String type;
+	private String tipoAttr;
+	private String typePromo;
 	protected Attraction[] attractions;
 	private boolean esPromocion = true;
-
+	
 	private Map<String, String> errors;
+	ArrayList<Integer> idAttractions = new ArrayList<Integer>();
 
-	public Promotion(int id, String name, String type, Attraction[] attractions) {
+	public Promotion(int id, String name, String tipoAttr,String typePromo, Attraction[] attractions) {
 		this.id = id;
 		this.name = name;
-		this.type = type;
+		this.tipoAttr = tipoAttr;
 		this.attractions = attractions;
-	}
-	/*
-	private void validate() {
-		errors = new HashMap<String, String>();
-
-		if (coins <= 0) {
-			errors.put("cost", "Debe ser positivo");
-		}
-		if (time <= 0) {
-			errors.put("duration", "Debe ser positivo");
-		}	
-	}
+		this.setTypePromo(typePromo);
+	}	
 	
 	public boolean isValid() {
 		validate();
 		return errors.isEmpty();
-		
-	}*/
+	}
 	
+	public void validate() {
+		errors = new HashMap<String, String>();
+
+		if(tipoAttr == null) {
+			errors.put("type", "No elegiste el tipo!");
+		}if(tipoAttr.equals("Visita_Guiada") && attractions.length != 3) {
+			errors.put("Paseo", "La promo debe tener 3 atracciones");
+		}
+	}
 
 	public Integer getId() {
 		return id;
@@ -51,9 +52,17 @@ public abstract class Promotion extends Sugerencia{
 	public Attraction[] getAttractions() {
 		return attractions;
 	}
+	
+	
+	public ArrayList<Integer> getIdAttractions() {
+		for(Attraction atr : attractions) {
+			idAttractions.add(atr.getId());
+		}
+		return idAttractions;
+	}
 
 	public String getType() {
-		return this.type;
+		return this.tipoAttr;
 	}
 
 	public boolean esPromocion() {
@@ -96,7 +105,7 @@ public abstract class Promotion extends Sugerencia{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Arrays.hashCode(attractions);
-		result = prime * result + Objects.hash(esPromocion, id, name, type);
+		result = prime * result + Objects.hash(esPromocion, id, name, tipoAttr);
 		return result;
 	}
 
@@ -110,14 +119,14 @@ public abstract class Promotion extends Sugerencia{
 			return false;
 		Promotion other = (Promotion) obj;
 		return Arrays.equals(attractions, other.attractions) && esPromocion == other.esPromocion
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(type, other.type);
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(tipoAttr, other.tipoAttr);
 	}
 
 	public abstract Double getCost();
 
 	@Override
 	public String toString() {
-		return "Promotion [id=" + id + ", name=" + name + ", type=" + type + ", attraction="
+		return "Promotion [id=" + id + ", name=" + name + ", type=" + tipoAttr + ", attraction="
 				+ Arrays.toString(attractions) + "]";
 	}
 
@@ -130,7 +139,15 @@ public abstract class Promotion extends Sugerencia{
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.tipoAttr = type;
+	}
+
+	public String getTypePromo() {
+		return typePromo;
+	}
+
+	public void setTypePromo(String typePromo) {
+		this.typePromo = typePromo;
 	}
 
 

@@ -14,4 +14,6 @@ public interface PromotionDAO extends GenericDAO<Promotion> {
 
 	int deleteAttr_Promotion(Promotion promotion);
 
+	int ultimoIdTabla();
+
 }

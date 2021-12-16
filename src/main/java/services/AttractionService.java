@@ -1,8 +1,11 @@
 package services;
 
+import java.util.Collections;
 import java.util.List;
 
 import model.Attraction;
+import model.OrdenarParaSugerir;
+import model.Promotion;
 import persistence.AttractionDAO;
 import persistence.commons.DAOFactory;
 
@@ -43,6 +46,10 @@ public class AttractionService {
 		return attraction;
 	}
 
+	public void listOrdenada(List<Attraction> attractions, String tipo) {
+		Collections.sort(attractions, new OrdenarParaSugerir(tipo));
+	} 
+	
 	public void delete(Integer id) {
 		Attraction attraction = new Attraction(id, null, null, null, null, null);
 

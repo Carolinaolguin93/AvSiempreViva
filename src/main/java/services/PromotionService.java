@@ -1,14 +1,14 @@
 
 package services;
 
+import java.util.Collections;
 import java.util.List;
-
 import model.Attraction;
+import model.OrdenarParaSugerir;
 import model.PromocionAbsoluta;
 import model.PromocionPorcentual;
 import model.PromocionTresPorDos;
 import model.Promotion;
-import model.Sugerencia;
 import persistence.AttractionDAO;
 import persistence.PromotionDAO;
 import persistence.commons.DAOFactory;
@@ -21,17 +21,17 @@ public class PromotionService {
 		return DAOFactory.getPromotionDAO().findAll(listAttr);
 	}
 
-	public Promotion create(String name, String type, Attraction[] attractions) {
+	public Promotion create(String name, String type, String typePromo,  Attraction[] attractions) {
 
 		Promotion promo = null;
-		Integer ultimoIdPromo = DAOFactory.getPromotionDAO().countAll();
+		Integer ultimoIdPromo = DAOFactory.getPromotionDAO().ultimoIdTabla();
 		Integer nuevoIdPromo = ultimoIdPromo+1;
-		if (type.equals("Aventura")) {
-			promo = new PromocionAbsoluta(nuevoIdPromo, name, type, attractions);
-		} else if (type.equals("Visita_Guiada")) {
-			promo = new PromocionTresPorDos(nuevoIdPromo, name, type, attractions);
-		} else if (type.equals("Gastronomia")) {
-			promo = new PromocionPorcentual(nuevoIdPromo, name, type, attractions);
+		if (typePromo.equals("Absoluta")) {
+			promo = new PromocionAbsoluta(nuevoIdPromo, name, type, typePromo, attractions);
+		} else if (typePromo.equals("TresPorDos")) {
+			promo = new PromocionTresPorDos(nuevoIdPromo, name, type, typePromo, attractions);
+		} else if (typePromo.equals("Porcentual")) {
+			promo = new PromocionPorcentual(nuevoIdPromo, name, type, typePromo, attractions);
 		}
 		
 		DAOFactory.getPromotionDAO().insert(promo);
@@ -42,38 +42,34 @@ public class PromotionService {
 		return promo;
 
 	}
-	/*
-	public void insertAttr_Promotion(Promotion promo) {
-		for(Attraction attr : promo.getAttractions()) {
-			DAOFactory.getPromotionDAO().insertAttr_Promotion(promo, attr);
-		}
-	}
-*/
-	public Promotion update(Integer id, String name, String type) {
+	
+	public void listOrdenada(List<Promotion> promotions, String tipo) {
+		Collections.sort(promotions, new OrdenarParaSugerir(tipo));
+	} 
+	
+	public Promotion update(Integer id, String name, String type, Attraction [] attractions, String typePromo) {
 
 		PromotionDAO promotionDao = DAOFactory.getPromotionDAO();
 		Promotion promotion = promotionDao.find(id);
 
 		promotion.setName(name);
-		promotion.setType(type);;
+		promotion.setType(type);
+		promotion.setTypePromo(typePromo);
 
+		
+		DAOFactory.getPromotionDAO().deleteAttr_Promotion(promotion);
+		for(Attraction attr : attractions) {
+			DAOFactory.getPromotionDAO().insertAttr_Promotion(id, attr);
+		}
 		promotionDao.update(promotion);
 
 		return promotion;
 	}
 
 	public void delete(Integer id) {
-	
-		Promotion promo = null;
-		if (id == 1) {
-			promo = new PromocionAbsoluta(id, null, null, null);
-		} else if (id == 2) {
-			promo = new PromocionTresPorDos(id, null, null, null);
-		} else if (id == 3) {
-			promo = new PromocionPorcentual(id, null, null, null);
-		}
-		
 		PromotionDAO promotionDao = DAOFactory.getPromotionDAO();
+		Promotion promo = promotionDao.find(id);
+		
 		promotionDao.deleteAttr_Promotion(promo);
 		promotionDao.delete(promo);
 		

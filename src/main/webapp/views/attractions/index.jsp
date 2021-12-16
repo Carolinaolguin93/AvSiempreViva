@@ -28,8 +28,8 @@
 			</div>
 		</c:if>
 
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Estas son las atracciones de la Tierra Media</h1>
+		<div class="p-4 mb-3 rounded" style="background-color: #3a3a3a!important;">
+			<h1 class="fuente-ls text-center">Estas son las atracciones del Parque</h1>
 		</div>
 		
 		<c:if test="${user.isAdmin()}">
@@ -47,6 +47,7 @@
 					<th>Costo</th>
 					<th>Duraci&oacute;n</th>
 					<th>Cupo</th>
+					<th>tipo</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -54,12 +55,11 @@
 				<c:forEach items="${attractions}" var="attraction">
 					<tr>
 						<td><strong><c:out value="${attraction.name}"></c:out></strong>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Cras pretium eros urna. Sed quis erat congue, bibendum tortor
-								malesuada, iaculis diam. Ut ut imperdiet sapien.</p></td>
+						<p><c:out value="${attraction.type}"></c:out></p></td>
 						<td><c:out value="${attraction.cost}"></c:out></td>
 						<td><c:out value="${attraction.duration}"></c:out></td>
 						<td><c:out value="${attraction.capacity}"></c:out></td>
+						<td><c:out value="${attraction.type}"></c:out></td>
 
 						<td><c:if test="${user.admin}">
 								<a href="/turismo/attractions/edit.do?id=${attraction.id}"
@@ -70,12 +70,7 @@
 									class="bi bi-x-circle-fill"></i></a>
 							</c:if> <c:choose>
 								<c:when
-									test="${itinerario.contains(attraction)}">
-									<a href="#" class="btn btn-primary rounded disabled"
-										role="button">Agregada al carrito</a>
-								</c:when>
-								<c:when
-									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost()}">
+									test="${user.canAfford(attraction) && user.canAttend(attraction) && attraction.canHost() && !itinerario.contains(attraction)}">
 									<a href="/turismo/attractions/buy.do?id=${attraction.id}"
 										class="btn btn-success rounded" role="button">Comprar</a>
 								</c:when>

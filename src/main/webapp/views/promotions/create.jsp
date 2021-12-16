@@ -10,7 +10,12 @@
 	<jsp:include page="/partials/header.jsp"></jsp:include>
 
 	<main class="container">
-
+	
+	<c:if test="${promotion != null && !promotion.isValid()}">
+			<div class="alert alert-danger">
+				<p>Se encontraron errores al crear la promocion.</p>
+			</div>
+		</c:if>
 		<form action="/turismo/promotions/create.do" method="post">
 			<jsp:include page="/views/promotions/form.jsp"></jsp:include>
 		</form>

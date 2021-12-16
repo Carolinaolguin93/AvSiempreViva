@@ -27,26 +27,22 @@
 		<table class="table table-stripped table-hover nowrap" style="width:100%">
 			<thead>
 				<tr>
-					<th>Atracción</th>
+					<th>Actividades</th>
 					<th>Costo</th>
 					<th>Duración</th>
-					<th>Cupo</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${itinerario}" var="atr">
 					<tr>
-						<td><strong><c:out value="${atr.name}"></c:out></strong>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Cras pretium eros urna. Sed quis erat congue, bibendum tortor
-								malesuada, iaculis diam. Ut ut imperdiet sapien.</p></td>
+						<td><strong><c:out value="${atr.name}"></c:out></strong></td>
 						<td><c:out value="${atr.cost}"></c:out></td>
 						<td><c:out value="${atr.duration}"></c:out></td>
 					</tr>
 			</c:forEach>		
 			</tbody>
 		</table>
-						</c:if>	
+	</c:if>	
 
 	</main>
 

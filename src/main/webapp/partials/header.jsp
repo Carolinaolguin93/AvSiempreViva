@@ -24,9 +24,12 @@
             <li class="nav-item">
               <a class="nav-link menu-item" href="/turismo/promotions/index.do">Promociones</a>
             </li>
-            <li class="nav-item">
+            <c:if test="${user.isAdmin()}">
+			<li class="nav-item">
               <a class="nav-link menu-item" href="/turismo/users/index.do">Usuarios</a>
             </li>
+		</c:if>
+            
           </ul>
           <ul class="navbar-nav">
           <li class="nav-item dropdown">
