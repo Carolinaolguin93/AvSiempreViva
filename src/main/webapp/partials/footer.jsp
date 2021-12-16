@@ -12,7 +12,7 @@
         <a class="" href="#!" role="button">
           <img src="/turismo/assets/img/whatsapp.png" alt="">
         </a>
-        <a class="" href="#!" role="button">
+        <a class="" href="https://github.com/Paradigma-AP/Paradigma3" role="button">
           <img src="/turismo/assets/img/github.png" alt="">
         </a>
       </section>

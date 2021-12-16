@@ -27,14 +27,14 @@
 			</div>
 		</c:if>
 
-	<div class="p-4 mb-3 rounded" style="background-color: #3a3a3a!important;">
-			<h1 class="fuente-ls text-center">Usuarios</h1>
+		<div class="p-4 mb-3 rounded" style="background-color: #3a3a3a!important;">
+			<h1 class="fuente-ls text-center">Tipos de atracciones</h1>
 		</div>
 
 		<c:if test="${user.isAdmin()}">
 			<div class="mb-3">
-				<a href="/turismo/users/create.do" class="btn btn-primary"
-					role="button"> <i class="bi bi-plus-lg"></i> Nuevo Usuario
+				<a href="/turismo/types/create.do" class="btn btn-primary"
+					role="button"> <i class="bi bi-plus-lg"></i> Nuevo Tipo
 				</a>
 			</div>
 		</c:if>
@@ -42,33 +42,18 @@
 			<thead>
 				<tr>
 					<th>Nombre</th>
-					<th>Monedas</th>
-					<th>Tiempo</th>
-					<th>Rol</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${users}" var="tmp_user">
+				<c:forEach items="${types}" var="type">
 					<tr>
-						<td><strong><c:out value="${tmp_user.username}"></c:out></strong></td>
-						<td><c:out value="${tmp_user.coins}"></c:out></td>
-						<td><c:out value="${tmp_user.time}"></c:out></td>
-						<td>
-							<c:choose>
-								<c:when test="${tmp_user.admin}">
-									Admin
-								</c:when>
-								<c:otherwise>
-									Normal
-								</c:otherwise>
-							</c:choose>						
-						</td>
+						<td><strong><c:out value="${type}"></c:out></strong></td>
 						<td><c:if test="${user.admin && (!tmp_user.admin || tmp_user.id == user.id)}">
-								<a href="/turismo/users/edit.do?id=${tmp_user.id}"
+								<a href="/turismo/types/edit.do?id=${type}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
-								<a href="/turismo/users/delete.do?id=${tmp_user.id}"
+								<a href="/turismo/types/delete.do?id=${type}"
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
 							</c:if></td>

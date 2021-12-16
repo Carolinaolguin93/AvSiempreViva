@@ -28,6 +28,9 @@
 			<li class="nav-item">
               <a class="nav-link menu-item" href="/turismo/users/index.do">Usuarios</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link menu-item" href="/turismo/types/index.do">Tipos</a>
+            </li>
 		</c:if>
             
           </ul>

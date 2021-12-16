@@ -3,27 +3,20 @@ package persistence.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 
-import model.User;
-import model.nullobjects.NullUser;
 import persistence.commons.ConnectionProvider;
 import persistence.commons.MissingDataException;
 
-public class TypeDAOImpl{
+public class TypeDAOImpl {
 
-	public int insert(User user) {
+	public int insert(String tipo) {
 		try {
-			String sql = "INSERT INTO USERS (USERNAME, PASSWORD, COINS, TIME, ADMIN, FK_TIPODEATRACCION) VALUES (?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO type_of_attr  (Tipo) VALUES (?)";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, user.getUsername());
-			statement.setString(2, user.getPassword());
-			statement.setDouble(3, user.getCoins());
-			statement.setDouble(4, user.getTime());
-			statement.setBoolean(5, user.getAdmin());
-			statement.setString(6, user.getType());
+			statement.setString(1, tipo);
 
 			int rows = statement.executeUpdate();
 
@@ -33,53 +26,20 @@ public class TypeDAOImpl{
 		}
 	}
 
-	public int update(User user) {
+	public String findByName(String name) {
 		try {
-			String sql = "UPDATE USERS SET COINS = ?, TIME = ? WHERE ID = ?";
-			Connection conn = ConnectionProvider.getConnection();
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setDouble(1, user.getCoins());
-			statement.setDouble(2, user.getTime());
-			statement.setDouble(3, user.getId());
-			int rows = statement.executeUpdate();
-
-			return rows;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
-	public int delete(User user) {
-		try {
-			String sql = "DELETE FROM USERS WHERE USERNAME = ?";
-			Connection conn = ConnectionProvider.getConnection();
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, user.getUsername());
-			int rows = statement.executeUpdate();
-
-			return rows;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
-	public User findByUsername(String username) {
-		try {
-			String sql = "SELECT * FROM USERS WHERE USERNAME = ?";
+			String sql = "SELECT * FROM type_of_attr WHERE Tipo = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, username);
+			statement.setString(1, name);
 			ResultSet resultados = statement.executeQuery();
-
-			User user = NullUser.build();
-
+			
+			String tipo = null;
 			if (resultados.next()) {
-				user = toUser(resultados);
+				tipo = resultados.getString(1);
 			}
 
-			return user;
+			return tipo;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
@@ -87,7 +47,7 @@ public class TypeDAOImpl{
 
 	public int countAll() {
 		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM USERS";
+			String sql = "SELECT COUNT(1) AS TOTAL FROM type_of_attr";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -101,14 +61,14 @@ public class TypeDAOImpl{
 		}
 	}
 
-	public LinkedList<String> findAll() {
+	public List<String> findAll() {
 		try {
 			String sql = "SELECT * FROM type_of_attr";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
 
-			LinkedList<String> tipos = new LinkedList<String>();
+			List<String> tipos = new LinkedList<String>();
 			while (resultados.next()) {
 				tipos.add(resultados.getString(1));
 			}
@@ -118,20 +78,15 @@ public class TypeDAOImpl{
 			throw new MissingDataException(e);
 		}
 	}
-
-	private User toUser(ResultSet userRegister) throws SQLException {
-		return new User(userRegister.getInt(1), userRegister.getString(2), userRegister.getString(3),
-				userRegister.getDouble(4), userRegister.getDouble(5), userRegister.getBoolean(6), userRegister.getString(7));
-	}
-
-	public int updatePsw(User user) {
+	
+	public int update(String name) {
 		try {
-			String sql = "UPDATE USERS SET password = ? WHERE ID = ?";
+			String sql = "UPDATE type_of_attr SET tipo = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, user.getPassword());
-			statement.setDouble(2, user.getId());
+			statement.setString(1, name);
+			
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -139,6 +94,19 @@ public class TypeDAOImpl{
 			throw new MissingDataException(e);
 		}
 	}
-	
-	
+
+	public int delete(String name) {
+		try {
+			String sql = "DELETE FROM type_of_attr WHERE tipo = ?";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, name);
+			int rows = statement.executeUpdate();
+
+			return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
 }

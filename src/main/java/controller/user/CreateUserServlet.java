@@ -21,11 +21,11 @@ public class CreateUserServlet extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		this.userService = new UserService();
+
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/users/create.jsp");
 		dispatcher.forward(req, resp);
 	}
@@ -38,7 +38,7 @@ public class CreateUserServlet extends HttpServlet {
 		Double time = Double.parseDouble(req.getParameter("time"));
 		Boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
 		String type = req.getParameter("type");
-
+		
 		User user = userService.create(username, password, coins, time, admin, type);
 		
 		if (user.isValid()) {

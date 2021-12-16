@@ -47,15 +47,14 @@
 					<th>Costo</th>
 					<th>Duraci&oacute;n</th>
 					<th>Cupo</th>
-					<th>tipo</th>
+					<th>Tipo</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${attractions}" var="attraction">
 					<tr>
-						<td><strong><c:out value="${attraction.name}"></c:out></strong>
-						<p><c:out value="${attraction.type}"></c:out></p></td>
+						<td><strong><c:out value="${attraction.name}"></c:out></strong></td>
 						<td><c:out value="${attraction.cost}"></c:out></td>
 						<td><c:out value="${attraction.duration}"></c:out></td>
 						<td><c:out value="${attraction.capacity}"></c:out></td>
